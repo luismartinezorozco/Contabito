@@ -19,6 +19,9 @@
         /* Animación suave para desplegar reportes */
         .expand-content { transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out; max-height: 0; opacity: 0; overflow: hidden; }
         .expand-content.open { max-height: 2000px; opacity: 1; margin-top: 1rem; }
+        /* Ocultar barra de scroll en contenedores horizontales para móviles */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 <body class="text-slate-800 h-screen flex flex-col overflow-hidden">
@@ -103,18 +106,18 @@
         </header>
 
         <!-- Main Content -->
-        <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
+        <main class="flex-1 overflow-y-auto p-3 sm:p-6 lg:p-8">
             <div class="max-w-7xl mx-auto space-y-6">
 
                 <!-- Tabs de Navegación -->
-                <div class="flex space-x-1 bg-slate-200 p-1 rounded-lg w-fit">
-                    <button onclick="switchTab('tab-registros')" id="btn-tab-registros" class="tab-btn px-4 py-2 text-sm font-medium rounded-md bg-white shadow text-slate-800 transition-all flex items-center gap-2">
+                <div class="flex overflow-x-auto hide-scrollbar space-x-2 bg-slate-200 p-1.5 rounded-lg w-full md:w-fit mb-2">
+                    <button onclick="switchTab('tab-registros')" id="btn-tab-registros" class="tab-btn flex-shrink-0 whitespace-nowrap px-4 py-2 text-sm font-medium rounded-md bg-white shadow text-slate-800 transition-all flex items-center gap-2">
                         <i data-lucide="list" class="w-4 h-4"></i> Libro Diario
                     </button>
-                    <button onclick="switchTab('tab-reportes')" id="btn-tab-reportes" class="tab-btn px-4 py-2 text-sm font-medium rounded-md text-slate-600 hover:text-slate-800 hover:bg-slate-50 transition-all flex items-center gap-2">
+                    <button onclick="switchTab('tab-reportes')" id="btn-tab-reportes" class="tab-btn flex-shrink-0 whitespace-nowrap px-4 py-2 text-sm font-medium rounded-md text-slate-600 hover:text-slate-800 hover:bg-slate-50 transition-all flex items-center gap-2">
                         <i data-lucide="folder-clock" class="w-4 h-4"></i> Historial Mensual
                     </button>
-                    <button onclick="switchTab('tab-admin')" id="btn-tab-admin" class="tab-btn px-4 py-2 text-sm font-medium rounded-md text-slate-600 hover:text-slate-800 hover:bg-slate-50 transition-all items-center gap-2 hidden">
+                    <button onclick="switchTab('tab-admin')" id="btn-tab-admin" class="tab-btn flex-shrink-0 whitespace-nowrap px-4 py-2 text-sm font-medium rounded-md text-slate-600 hover:text-slate-800 hover:bg-slate-50 transition-all items-center gap-2 hidden">
                         <i data-lucide="shield" class="w-4 h-4"></i> Panel SuperAdmin
                     </button>
                 </div>
@@ -198,11 +201,11 @@
                                                 <input type="number" id="trans-amount" required min="1" step="any" class="pl-8 w-full rounded-lg border border-slate-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="0">
                                             </div>
                                         </div>
-                                        <div class="flex gap-2">
-                                            <button type="button" id="cancel-edit-btn" onclick="cancelEdit()" class="hidden w-1/3 bg-slate-200 hover:bg-slate-300 text-slate-700 font-medium py-2 rounded-lg transition-colors flex items-center justify-center gap-2">
+                                        <div class="flex flex-col sm:flex-row gap-2 pt-2">
+                                            <button type="button" id="cancel-edit-btn" onclick="cancelEdit()" class="hidden w-full sm:w-1/3 bg-slate-200 hover:bg-slate-300 text-slate-700 font-medium py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2">
                                                 <i data-lucide="x" class="w-4 h-4"></i> Cancelar
                                             </button>
-                                            <button type="submit" id="submit-btn" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 rounded-lg transition-colors flex items-center justify-center gap-2">
+                                            <button type="submit" id="submit-btn" class="flex-1 w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2">
                                                 <i data-lucide="save" class="w-4 h-4"></i> Guardar Registro
                                             </button>
                                         </div>
@@ -352,9 +355,9 @@
                                         <h4 class="text-sm font-bold text-slate-800 flex items-center gap-2 mb-3">
                                             <i data-lucide="key" class="w-4 h-4 text-amber-500"></i> 2. Cambiar Contraseña
                                         </h4>
-                                        <form id="form-change-pass" class="flex gap-2">
-                                            <input type="password" id="input-new-pass" required placeholder="Escribir nueva contraseña..." class="flex-1 rounded-md border border-slate-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500 text-sm">
-                                            <button type="submit" class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">Actualizar</button>
+                                        <form id="form-change-pass" class="flex flex-col sm:flex-row gap-2">
+                                            <input type="password" id="input-new-pass" required placeholder="Escribir nueva contraseña..." class="flex-1 w-full rounded-md border border-slate-300 px-3 py-2.5 focus:ring-2 focus:ring-indigo-500 text-sm">
+                                            <button type="submit" class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2.5 rounded-md text-sm font-medium transition-colors w-full sm:w-auto">Actualizar</button>
                                         </form>
                                     </div>
 
@@ -363,9 +366,9 @@
                                         <h4 class="text-sm font-bold text-slate-800 flex items-center gap-2 mb-3">
                                             <i data-lucide="landmark" class="w-4 h-4 text-emerald-500"></i> 3. Sus Bancos Personalizados
                                         </h4>
-                                        <form id="form-add-bank" class="flex gap-2 mb-4">
-                                            <input type="text" id="input-new-bank" required placeholder="Ej: Banco Agrario..." class="flex-1 rounded-md border border-slate-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500 text-sm">
-                                            <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">Añadir</button>
+                                        <form id="form-add-bank" class="flex flex-col sm:flex-row gap-2 mb-4">
+                                            <input type="text" id="input-new-bank" required placeholder="Ej: Banco Agrario..." class="flex-1 w-full rounded-md border border-slate-300 px-3 py-2.5 focus:ring-2 focus:ring-indigo-500 text-sm">
+                                            <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2.5 rounded-md text-sm font-medium transition-colors w-full sm:w-auto">Añadir</button>
                                         </form>
                                         <div id="managed-user-banks" class="flex flex-wrap gap-2">
                                             <!-- Bancos aquí -->
@@ -667,11 +670,14 @@
             tbody.innerHTML = '';
             let totalIncome = 0, totalExpense = 0;
 
-            if (appData.transactions.length === 0) {
+            // FILTRAR ESTRICTAMENTE LOS MOVIMIENTOS DEL USUARIO ACTUAL
+            const myTransactions = appData.transactions.filter(t => t.userId === appData.currentUser.id);
+
+            if (myTransactions.length === 0) {
                 emptyState.classList.remove('hidden'); emptyState.classList.add('flex');
             } else {
                 emptyState.classList.add('hidden'); emptyState.classList.remove('flex');
-                appData.transactions.forEach(t => {
+                myTransactions.forEach(t => {
                     if (t.type === 'ingreso') totalIncome += t.amount;
                     if (t.type === 'egreso') totalExpense += t.amount;
                     const row = document.createElement('tr');
@@ -683,7 +689,7 @@
                         <td class="px-6 py-4 text-sm text-slate-800 font-medium">${t.reason}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500"><span class="bg-slate-100 px-2 py-1 rounded-md border border-slate-200">${t.bank}</span></td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-right font-bold ${amountColor}">${amountSign} ${formatCurrency(t.amount)}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-xs text-center text-slate-400">${t.username}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-xs text-center text-slate-400">Tú</td>
                         <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
                             <div class="flex justify-center gap-2">
                                 <button onclick="editTransaction('${t.id}')" class="text-indigo-600 hover:text-indigo-900 bg-indigo-50 p-1.5 rounded-md transition-colors" title="Editar registro">
@@ -871,7 +877,11 @@
         function renderMonthlyReports() {
             const container = document.getElementById('reports-container');
             container.innerHTML = '';
-            if (appData.transactions.length === 0) {
+            
+            // FILTRAR ESTRICTAMENTE LOS MOVIMIENTOS DEL USUARIO ACTUAL PARA EL HISTORIAL
+            const myTransactions = appData.transactions.filter(t => t.userId === appData.currentUser.id);
+
+            if (myTransactions.length === 0) {
                 container.innerHTML = '<div class="text-center py-8 text-slate-500"><i data-lucide="inbox" class="w-12 h-12 mx-auto mb-2 opacity-50"></i><p>No hay datos para mostrar en el historial.</p></div>';
                 lucide.createIcons();
                 return;
@@ -879,7 +889,7 @@
             
             // Agrupar transacciones por mes
             const monthsData = {};
-            appData.transactions.forEach(t => {
+            myTransactions.forEach(t => {
                 const monthKey = t.date.substring(0, 7);
                 if (!monthsData[monthKey]) monthsData[monthKey] = { income: 0, expense: 0, count: 0, transactions: [] };
                 monthsData[monthKey].count++;
@@ -913,42 +923,55 @@
                 });
 
                 const card = document.createElement('div');
-                card.className = "bg-white border border-slate-200 rounded-xl shadow-sm";
+                card.className = "bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden";
                 card.innerHTML = `
                     <!-- Cabecera del mes (Clicable) -->
-                    <div class="p-5 cursor-pointer hover:bg-slate-50 transition-colors flex flex-col md:flex-row justify-between md:items-center gap-4 rounded-xl" onclick="toggleMonthView('${key}')">
-                        <div class="flex items-center gap-3">
-                            <div class="bg-indigo-100 text-indigo-600 p-2 rounded-lg">
-                                <i data-lucide="calendar-days" class="w-5 h-5"></i>
+                    <div class="p-4 sm:p-5 cursor-pointer hover:bg-slate-50 transition-colors flex flex-col md:flex-row justify-between md:items-center gap-4" onclick="toggleMonthView('${key}')">
+                        <div class="flex items-center justify-between w-full md:w-auto gap-3">
+                            <div class="flex items-center gap-3">
+                                <div class="bg-indigo-100 text-indigo-600 p-2 rounded-lg">
+                                    <i data-lucide="calendar-days" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-lg text-slate-800">${monthName} ${year}</h3>
+                                    <p class="text-xs text-slate-500">${data.count} movimientos registrados</p>
+                                </div>
                             </div>
-                            <div>
-                                <h3 class="font-bold text-lg text-slate-800">${monthName} ${year}</h3>
-                                <p class="text-xs text-slate-500">${data.count} movimientos registrados</p>
+                            <!-- Chevron visible solo en móvil -->
+                            <i data-lucide="chevron-down" id="chevron-mobile-${key}" class="w-5 h-5 text-slate-400 transform transition-transform duration-300 md:hidden"></i>
+                        </div>
+                        
+                        <div class="flex flex-col sm:flex-row w-full md:w-auto items-start sm:items-center gap-2 sm:gap-4 text-sm bg-slate-50 p-3 rounded-lg border border-slate-100">
+                            <div class="flex justify-between w-full sm:w-auto text-slate-500">
+                                <span>Ingresos:</span> <span class="font-medium text-emerald-600 ml-2">${formatCurrency(data.income)}</span>
+                            </div>
+                            <div class="hidden sm:block border-l border-slate-300 h-4"></div>
+                            <div class="flex justify-between w-full sm:w-auto text-slate-500">
+                                <span>Egresos:</span> <span class="font-medium text-rose-600 ml-2">${formatCurrency(data.expense)}</span>
+                            </div>
+                            <div class="hidden sm:block border-l border-slate-300 h-4"></div>
+                            <div class="flex justify-between w-full sm:w-auto font-bold text-slate-700 pt-2 border-t border-slate-200 sm:pt-0 sm:border-0">
+                                <span>Balance:</span> <span class="${balanceColor} ml-2">${formatCurrency(balance)}</span>
                             </div>
                         </div>
-                        <div class="flex flex-wrap items-center gap-4 text-sm bg-slate-50 p-2 rounded-lg border border-slate-100">
-                            <div class="text-slate-500">Ingresos: <span class="font-medium text-emerald-600">${formatCurrency(data.income)}</span></div>
-                            <div class="hidden sm:block border-l border-slate-300 h-4"></div>
-                            <div class="text-slate-500">Egresos: <span class="font-medium text-rose-600">${formatCurrency(data.expense)}</span></div>
-                            <div class="hidden sm:block border-l border-slate-300 h-4"></div>
-                            <div class="font-bold text-slate-700">Balance: <span class="${balanceColor}">${formatCurrency(balance)}</span></div>
-                        </div>
-                        <i data-lucide="chevron-down" id="chevron-${key}" class="w-5 h-5 text-slate-400 transform transition-transform duration-300 absolute right-6 md:relative md:right-0"></i>
+                        
+                        <!-- Chevron visible solo en PC -->
+                        <i data-lucide="chevron-down" id="chevron-desktop-${key}" class="hidden md:block w-5 h-5 text-slate-400 transform transition-transform duration-300"></i>
                     </div>
 
                     <!-- Contenido de la tabla (Oculto por defecto) -->
-                    <div id="content-${key}" class="expand-content px-5 pb-5">
-                        <div class="overflow-x-auto border border-slate-200 rounded-lg">
+                    <div id="content-${key}" class="expand-content bg-white">
+                        <div class="overflow-x-auto border-t border-slate-100">
                             <table class="min-w-full divide-y divide-slate-200">
                                 <thead class="bg-slate-50">
                                     <tr>
-                                        <th class="px-4 py-2 text-left text-xs font-medium text-slate-500 uppercase">Fecha</th>
-                                        <th class="px-4 py-2 text-left text-xs font-medium text-slate-500 uppercase">Concepto</th>
-                                        <th class="px-4 py-2 text-left text-xs font-medium text-slate-500 uppercase">Cuenta</th>
-                                        <th class="px-4 py-2 text-right text-xs font-medium text-slate-500 uppercase">Monto</th>
+                                        <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase">Fecha</th>
+                                        <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase">Concepto</th>
+                                        <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase">Cuenta</th>
+                                        <th class="px-4 py-3 text-right text-xs font-medium text-slate-500 uppercase">Monto</th>
                                     </tr>
                                 </thead>
-                                <tbody class="bg-white">
+                                <tbody class="divide-y divide-slate-100">
                                     ${rowsHtml}
                                 </tbody>
                             </table>
@@ -962,21 +985,27 @@
 
         window.toggleMonthView = function(monthKey) {
             const content = document.getElementById(`content-${monthKey}`);
-            const chevron = document.getElementById(`chevron-${monthKey}`);
+            const chevronDesktop = document.getElementById(`chevron-desktop-${monthKey}`);
+            const chevronMobile = document.getElementById(`chevron-mobile-${monthKey}`);
             
             if (content.classList.contains('open')) {
                 content.classList.remove('open');
-                chevron.style.transform = 'rotate(0deg)';
+                if(chevronDesktop) chevronDesktop.style.transform = 'rotate(0deg)';
+                if(chevronMobile) chevronMobile.style.transform = 'rotate(0deg)';
             } else {
                 // Cerrar todos los demás primero para mantener la limpieza
                 document.querySelectorAll('.expand-content.open').forEach(el => {
                     el.classList.remove('open');
                     const id = el.id.split('-')[1] + '-' + el.id.split('-')[2];
-                    document.getElementById(`chevron-${id}`).style.transform = 'rotate(0deg)';
+                    const chD = document.getElementById(`chevron-desktop-${id}`);
+                    const chM = document.getElementById(`chevron-mobile-${id}`);
+                    if(chD) chD.style.transform = 'rotate(0deg)';
+                    if(chM) chM.style.transform = 'rotate(0deg)';
                 });
                 
                 content.classList.add('open');
-                chevron.style.transform = 'rotate(180deg)';
+                if(chevronDesktop) chevronDesktop.style.transform = 'rotate(180deg)';
+                if(chevronMobile) chevronMobile.style.transform = 'rotate(180deg)';
             }
         };
 
