@@ -166,12 +166,12 @@
                                     </h2>
                                 </div>
                                 <div class="p-5">
-                                    <form id="transaction-form" class="space-y-4">
-                                        <div>
+                                    <form id="transaction-form" class="space-y-4 w-full overflow-hidden">
+                                        <div class="w-full">
                                             <label class="block text-sm font-medium text-slate-700 mb-1">Fecha del movimiento</label>
-                                            <input type="date" id="trans-date" required class="block w-full max-w-full box-border bg-white rounded-lg border border-slate-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                            <input type="date" id="trans-date" required class="w-full min-w-0 text-sm sm:text-base block bg-white rounded-lg border border-slate-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
                                         </div>
-                                        <div class="grid grid-cols-2 gap-3">
+                                        <div class="grid grid-cols-2 gap-3 w-full">
                                             <label class="cursor-pointer">
                                                 <input type="radio" name="trans-type" value="ingreso" class="peer sr-only" checked>
                                                 <div class="rounded-lg border border-slate-200 px-4 py-2 text-center hover:bg-slate-50 peer-checked:border-emerald-500 peer-checked:bg-emerald-50 peer-checked:text-emerald-700 transition-all font-medium text-sm">Ingreso</div>
