@@ -444,14 +444,32 @@
         }
 
         const formatCurrency = (amount) => new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 }).format(amount);
-        const formatDate = (dateString) => new Date(dateString).toLocaleDateString('es-CO', { year: 'numeric', month: 'short', day: 'numeric' });
+        
+        // CORRECCIÓN 1: Evita el desfase de zona horaria al mostrar la fecha
+        const formatDate = (dateString) => {
+            if (!dateString) return '';
+            const parts = dateString.split('-');
+            if (parts.length !== 3) return dateString;
+            // Se crea la fecha usando Año, Mes, Día de forma local, evitando que JavaScript le reste horas
+            const date = new Date(parts[0], parts[1] - 1, parts[2]);
+            return date.toLocaleDateString('es-CO', { year: 'numeric', month: 'short', day: 'numeric' });
+        };
 
         function initUI() {
             lucide.createIcons();
-            const today = new Date().toISOString().split('T')[0];
+            
+            // CORRECCIÓN 2: Obtener la fecha EXACTA del dispositivo del usuario (Hora local)
+            const todayDate = new Date();
+            const localYear = todayDate.getFullYear();
+            const localMonth = String(todayDate.getMonth() + 1).padStart(2, '0');
+            const localDay = String(todayDate.getDate()).padStart(2, '0');
+            const todayLocal = `${localYear}-${localMonth}-${localDay}`;
+            
             const dateInput = document.getElementById('trans-date');
-            dateInput.value = today;
-            dateInput.max = today;
+            if (dateInput) {
+                dateInput.value = todayLocal;
+                dateInput.max = todayLocal; // Bloquea seleccionar fechas en el futuro
+            }
         }
 
         // ---- INICIALIZACIÓN DE FIREBASE Y ESCUCHAS ----
